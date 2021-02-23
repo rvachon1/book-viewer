@@ -1,0 +1,3 @@
+Fix when back:
+1. Move the display_search_results helper INTO the view. 
+This is required because I need to nest iterators

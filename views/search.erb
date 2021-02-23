@@ -1,0 +1,24 @@
+<h2 class="content-subhead">Search</h2>
+
+<form action="/search" method="get">
+  <input name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<% if @search_results %>
+  <h2 class="content-subhead">Results for '<%= @query %>'</h2>
+  <ul>
+    <% @search_results.each do |result| %>
+        <h3><li><a href="chapters/<%= result[:chp] %>">Chapter <%= result[:chp] %>: <%= @toc[result[:chp] - 1] %></a></h3>
+        <ul>
+          <% result[:matches].each do |match| %>
+            <li><a href="chapters/<%= result[:chp] %>#<%= match[:p_idx] %>"><%= bold_match(match[:p], @query) %></a></li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+<% elsif @query == "" || @query == nil %>
+<% else %>
+  <p>Sorry, no matches were found.</p>
+<% end %>
